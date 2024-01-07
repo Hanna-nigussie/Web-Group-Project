@@ -5,6 +5,7 @@ import { JwtGuard } from 'src/auth/guards';
 import { GetUser } from 'src/user/decorator/get-user.decorator';
 import { User, UserType } from '@prisma/client';
 import { UpdateJobDto } from './dto/update-job.dto';
+import { UseGuards } from '@nestjs/common';
 
 
 @UseGuards(JwtGuard)

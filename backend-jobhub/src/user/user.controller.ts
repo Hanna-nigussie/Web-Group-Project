@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { UserService } from './user.service';
+import { JwtGuard } from 'src/auth/guards';
 import { GetUser } from './decorator/get-user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 import CreateUserDto from './dto/create-user.dto';
@@ -8,7 +9,8 @@ import { User } from '@prisma/client';
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
+  
+  @UseGuards(JwtGuard)
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     try {
@@ -33,22 +35,33 @@ async getAllUsers(): Promise<User[]> {
 
   
 
-
+@UseGuards(JwtGuard)
 @Delete(':id')
 async deleteUser(@Param('id') userId: string) {
   try {
     const result = await this.userService.deleteUser(userId);
-    return result; // You can return a success message or any relevant information
+    return result;
   } catch (error) {
     console.error('Error deleting user:', error);
     return { error: 'Something went wrong' };
   }
 }
 
-
+@UseGuards(JwtGuard)
 @Patch(':id')
 updateUser(@Param('id') userId: string, @Body() dto: UpdateUserDto) {
   return this.userService.updateUser(userId, dto);
+}
+
+@Get(':id')
+async getUserById(@Param('id') userId: string): Promise<User> {
+  const user = await this.userService.getUserById(userId);
+
+  if (!user) {
+    throw new NotFoundException(`User with ID ${userId} not found`);
+  }
+
+  return user;
 }
 
 

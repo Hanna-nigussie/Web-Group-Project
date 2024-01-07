@@ -62,5 +62,19 @@ export class AuthService {
 
     return user;
   }
+  
+  private async registerAdminUser(registerDto: RegisterUsersDto): Promise<any> {
+    const adminUser = await this.db.user.create({
+      data: {
+        username: registerDto.username,
+        password: registerDto.password,
+        name: registerDto.name,
+        email: registerDto.email,
+        role: 'admin',
+      },
+    });
+
+    return adminUser;
+  }
 
 }

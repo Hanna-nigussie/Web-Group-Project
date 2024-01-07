@@ -7,11 +7,13 @@ export class RegisterUsersDto {
      username: string;
      @IsString()
      @Length(6,12)
-     password: string
+     password: string;
      @IsString()
      @Length(5,10)
-     name: string
+     name: string;
      @IsString()
      @Length(5,10)
-     email:string
+     email:string;
+     @IsString()
+     role: string;
 }

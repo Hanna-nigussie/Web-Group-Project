@@ -5,6 +5,7 @@ import { GetUser } from './decorator/get-user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 import CreateUserDto from './dto/create-user.dto';
 import { User } from '@prisma/client';
+import { UseGuards } from '@nestjs/common';
 
 @Controller('users')
 export class UserController {

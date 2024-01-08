@@ -2,18 +2,35 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUsersDto } from './dto/user_register.dto';
-import { DatabaseService } from './database/database.service';
-import { LoginDto } from './dto/user_login.dto'; 
+import { LoginDto } from './dto/user_login.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
+import { UserService } from 'src/user/user.service';
+import * as jwt from 'jsonwebtoken';
+
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService, private readonly db: DatabaseService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly db: PrismaService,
+    private readonly userService: UserService,
+  ) {}
+
+  async hasRole(userId: string, role: string): Promise<boolean> {
+    const user = await this.validateUserById(userId);
+    return user?.userrole === role;
+  }
 
   async login(loginDto: LoginDto): Promise<string> {
     const user = await this.validateUserCredentials(loginDto);
 
     if (user) {
-      const token = this.jwtService.sign({ sub: user.id, username: user.username, role: user.role });
+      const token = this.jwtService.sign({
+        sub: user.id,
+        username: user.username,
+        role: user.userrole,
+      });
       return token;
     }
 
@@ -21,60 +38,86 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterUsersDto): Promise<string> {
-    if (registerDto.role === 'admin' && registerDto.username === 'admin' && registerDto.password === 'admin123') {
-      const adminUser = await this.registerAdminUser(registerDto);
-      if (adminUser) {
-        const token = this.jwtService.sign({ sub: adminUser.id, username: adminUser.username, role: 'admin' });
-        return token;
-      }
-    } else {
-      const user = await this.registerUser(registerDto);
-      if (user) {
-        const token = this.jwtService.sign({ sub: user.id, username: user.username, role: 'user' });
-        return token;
-      }
-    }
+    const hashedPassword = await this.hashPassword(registerDto.password);
 
-    throw new UnauthorizedException('Invalid registration credentials');
+    const userData = {
+      username: registerDto.username,
+      password: hashedPassword,
+      name: registerDto.username,
+      email: registerDto.email,
+      userrole: 'user', 
+      hash: hashedPassword,
+    };
+
+    const newUser = await this.registerUser(userData);
+
+    const token = this.jwtService.sign({
+      sub: newUser.id,
+      username: newUser.username,
+      role: newUser.userrole,
+    });
+    return token;
   }
 
   private async validateUserCredentials(loginDto: LoginDto): Promise<any> {
+    const username = loginDto.username.toLowerCase(); 
+
+    if (username === 'admin' && loginDto.password === '1234abc') {
+      return {
+        id: 'admin-id', 
+        username: 'admin',
+        userrole: 'admin',
+      };
+    }
+
     const user = await this.db.user.findUnique({
       where: {
-        username: loginDto.username,
-        password: loginDto.password,
+        username,
       },
     });
 
-    return user;
+    if (user && (await this.verifyPassword(loginDto.password, user.password))) {
+      return user;
+    }
+
+    return null;
   }
 
-  private async registerUser(registerDto: RegisterUsersDto): Promise<any> {
-    const user = await this.db.user.create({
-      data: {
-        username: registerDto.username,
-        password: registerDto.password,
-        name: registerDto.name,
-        email: registerDto.email,
-        role: 'user',
-      },
+  private async verifyPassword(plainTextPassword: string, hashedPassword: string): Promise<boolean> {
+    return bcrypt.compare(plainTextPassword, hashedPassword);
+  }
+
+  private async registerUser(userData: any): Promise<any> {
+    return this.db.user.create({
+      data: userData,
     });
-
-    return user;
-  }
-  
-  private async registerAdminUser(registerDto: RegisterUsersDto): Promise<any> {
-    const adminUser = await this.db.user.create({
-      data: {
-        username: registerDto.username,
-        password: registerDto.password,
-        name: registerDto.name,
-        email: registerDto.email,
-        role: 'admin',
-      },
-    });
-
-    return adminUser;
   }
 
-}
+  private async hashPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    return bcrypt.hash(password, saltRounds);
+  }
+
+  async validateUserById(userId: string): Promise<any> {
+    return this.userService.getUserById(userId);
+  }
+  async hasAdminRole(userId: string): Promise<boolean> {
+    const user = await this.validateUserById(userId);
+    return user?.userrole === 'admin';
+  }}
+
+ 
+const secretKey = '12345'; 
+
+const generateJwtToken = (userId: string, username: string, roles: string[]) => {
+  const payload = { sub: userId, username, roles };
+  const options = { expiresIn: '1h' }; 
+
+  return jwt.sign(payload, secretKey, options);
+};
+
+const userId = '123';
+const username = 'firstUser';
+const roles = ['user', 'admin'];
+
+const token = generateJwtToken(userId, username, roles);

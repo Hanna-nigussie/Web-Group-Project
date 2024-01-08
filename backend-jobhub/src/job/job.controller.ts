@@ -1,22 +1,21 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Req } from '@nestjs/common';
 import { JobService } from './job.service';
 import { CreateJobDto } from './dto/create-job.dto';
-import { JwtGuard } from 'src/auth/guards';
 import { GetUser } from 'src/user/decorator/get-user.decorator';
 import { User, UserType } from '@prisma/client';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+import { RolesGuard } from 'src/auth/guards/role.guard';
+import { Roles, UserRole } from 'src/auth/decorator/roles.decorator';
 
-@UseGuards(JwtGuard)
 @Controller('jobs')
 export class JobController {
-  UserService: any;
   constructor(private readonly jobService: JobService) {}
-  
-  
-  @UseGuards(JwtGuard)
+
   @Post()
+  @UseGuards(JwtAuthGuard)
   async createJob(@Body() dto: CreateJobDto) {
     const userId = dto.createrId;
 
@@ -31,18 +30,8 @@ export class JobController {
     return this.jobService.createJob(userId, dto);
   }
 
-
-  @Get()
-  async getAllJobs() {
-    try {
-      const jobs = await this.jobService.getAllJobs();
-      return { jobs, success: true };
-    } catch (error) {
-      return { error: 'An error occurred while fetching jobs', success: false };
-    }
-  }
-
   @Get('forEmployees')
+  @UseGuards(JwtAuthGuard)
   async getJobsForEmployees() {
     try {
       const jobs = await this.jobService.getJobsByUserType(UserType.EMPLOYEE);
@@ -52,9 +41,8 @@ export class JobController {
     }
   }
 
-  
-
   @Get('forJobSeekers')
+  @UseGuards(JwtAuthGuard)
   async getJobsForJobSeekers() {
     try {
       const jobs = await this.jobService.getJobsByUserType(UserType.JOB_SEEKER);
@@ -63,28 +51,54 @@ export class JobController {
       return { error: 'An error occurred while fetching jobs for job seekers', success: false };
     }
   }
-  
-  
-  @UseGuards(JwtGuard)
+
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   async deleteJob(@Param('id') jobId: string) {
     try {
       const result = await this.jobService.deleteJob(jobId);
       return { success: true, message: `Job with ID ${jobId} deleted successfully` };
     } catch (error) {
       return { error: `An error occurred while deleting job with ID ${jobId}`, success: false };
-    }}
+    }
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  async updateJob(@Param('id') jobId: string, @Body() updateJobDto: UpdateJobDto) {
+    try {
+      const updatedJob = await this.jobService.updateJob(jobId, updateJobDto);
+      return { success: true, job: updatedJob };
+    } catch (error) {
+      return { error: `An error occurred while updating job with ID ${jobId}`, success: false };
+    }
+  }
 
 
-    @UseGuards(JwtGuard)
-    @Patch(':id')
-   
-    async updateJob(@Param('id') jobId: string, @Body() updateJobDto: UpdateJobDto) {
-      try {
-        const updatedJob = await this.jobService.updateJob(jobId, updateJobDto);
-        return { success: true, job: updatedJob };
-      } catch (error) {
-        return { error: `An error occurred while updating job with ID ${jobId}`, success: false };
-      }
+
+  @Get('adminOnly')
+  @Roles(UserRole.ADMIN)  
+  @UseGuards(JwtAuthGuard, RolesGuard) 
+  async adminOnlyRoute() {
+    try {
+      const jobs = await this.jobService.getAllJobs();
+      return { jobs, success: true };
+    } catch (error) {
+      return { error: 'An error occurred while fetching jobs', success: false };
+    }
+  }
   
-    }}
+  
+  @Get('getAllJobs')
+  async getAllJobs() {
+    try {
+      const jobs = await this.jobService.getAllJobs();
+      return { jobs, success: true };
+    } catch (error) {
+      return { error: 'An error occurred while fetching jobs', success: false };
+    }
+  }
+}
+
+
+

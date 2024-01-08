@@ -12,10 +12,10 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
+    "strict": true,  // Enable strict mode
+    "noImplicitAny": false,  // It's usually better to have this enabled for stronger typing
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "forceConsistentCasingInFileNames": true,  // Enable consistent casing
+    "noFallthroughCasesInSwitch": true
   }
 }

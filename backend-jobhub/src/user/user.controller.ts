@@ -1,70 +1,63 @@
-import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { JwtGuard } from 'src/auth/guards';
 import { GetUser } from './decorator/get-user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
-import CreateUserDto from './dto/create-user.dto';
 import { User } from '@prisma/client';
-import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/role.guard';
+import { Roles, UserRole } from 'src/auth/decorator/roles.decorator';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  
-  @UseGuards(JwtGuard)
-  @Post()
-  async createUser(@Body() createUserDto: CreateUserDto) {
+
+  @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)  
+  async getAllUsers(): Promise<User[]> {
     try {
-      const newUser = await this.userService.create(createUserDto);
-      return { user: newUser };
+      const allUsers = await this.userService.getAllUsers();
+      return allUsers;
     } catch (error) {
-      console.error('Error creating user:', error);
+      console.error('Error getting all users:', error);
+      return []; 
+    }
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  async deleteUser(@Param('id') userId: string) {
+    try {
+      const result = await this.userService.deleteUser(userId);
+      return result;
+    } catch (error) {
+      console.error('Error deleting user:', error);
       return { error: 'Something went wrong' };
     }
   }
 
-  @Get()
-async getAllUsers(): Promise<User[]> {
-  try {
-    const allUsers = await this.userService.getAllUsers();
-    return allUsers;
-  } catch (error) {
-    console.error('Error getting all users:', error);
-    return []; 
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  uupdateUser(@Param('id') userId: string, @Body() dto: UpdateUserDto) {
+    return this.userService.updateUser(userId, dto);
   }
-}
+
+
 
   
+  @Get(':id')
+ async getUserById(@Param('id') userId: string): Promise<User> {
+    const user = await this.userService.getUserById(userId);
 
-@UseGuards(JwtGuard)
-@Delete(':id')
-async deleteUser(@Param('id') userId: string) {
-  try {
-    const result = await this.userService.deleteUser(userId);
-    return result;
-  } catch (error) {
-    console.error('Error deleting user:', error);
-    return { error: 'Something went wrong' };
-  }
-}
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
 
-@UseGuards(JwtGuard)
-@Patch(':id')
-updateUser(@Param('id') userId: string, @Body() dto: UpdateUserDto) {
-  return this.userService.updateUser(userId, dto);
-}
-
-@Get(':id')
-async getUserById(@Param('id') userId: string): Promise<User> {
-  const user = await this.userService.getUserById(userId);
-
-  if (!user) {
-    throw new NotFoundException(`User with ID ${userId} not found`);
+    return user;
   }
 
-  return user;
-}
-
-
-
+  @Get(':id/profile')
+  async getProfile(@Param('id') userId: string) {
+    return this.userService.getProfile(userId);
+  }
 }

@@ -1,25 +1,24 @@
-import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
-import { PassportStrategy } from '@nestjs/passport'
-import { ExtractJwt, Strategy } from 'passport-jwt'
-import { DatabaseService } from 'src/database/database.service'
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { AuthService } from '../auth.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor(config: ConfigService, private db: DatabaseService) {
+export class JwtStrategy extends PassportStrategy(Strategy) {
+  constructor(private authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.get('JWT_SECRET'),
-    })
+      secretOrKey: '12345',
+    });
   }
 
-  async validate(payload: { sub: string; email: string }) {
-    const user = await this.db.user.findUnique({
-      where: { id: payload.sub },
-    })
-    delete user.hash
-    // by returning the user, we append the user object into
-    // the request object to make it accessible
-    return user
+  async validate(payload: any) {
+    console.log('Validating token payload:', payload);
+    const user = await this.authService.validateUserById(payload.sub);
+    if (!user) {
+      console.log('User not found');
+      throw new UnauthorizedException();
+    }
+    return user;
   }
 }

@@ -1,53 +1,30 @@
-import { Controller,Post,Body,Req,Res } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { LoginDto } from "./dto/user_login.dto";
-import {Request,Response} from 'express';
-import { RegisterUsersDto } from "./dto/user_register.dto";
 
+import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { LoginDto } from './dto/user_login.dto';
+import { RegisterUsersDto } from './dto/user_register.dto';
 
-@Controller('/auth')
-export class AuthController{
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
 
+  @Post('login')
+  async login(@Body() loginDto: LoginDto, @Res() res): Promise<any> {
+    try {
+      const token = await this.authService.login(loginDto);
+      return res.status(HttpStatus.OK).json({ token });
+    } catch (error) {
+      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'Invalid credentials' });
+    }
+  }
 
-     constructor(private readonly authService:AuthService){}
-
-
-
-     @Post('/login')
-     async login(@Req() request:Request, @Res() response :Response, @Body() loginDto: LoginDto):Promise<any>{
-          try{
-              const result = await this.authService.login(loginDto);
-              return response.status(200).json({
-               status: 'Ok!',
-               message: 'Successfully login!',
-               result: result
-              })
-
-          }catch(err){
-               return response.status(500).json({
-                    status: 'Error!',
-                    message: 'Internal Server Error!',
-                   })
-          }
-     }
-
-
-     @Post('/register')
-     async register(@Req() request:Request, @Res() response :Response, @Body() registerDto: RegisterUsersDto):Promise<any>{
-          try {
-               const result = await this.authService.register(registerDto);
-               return response.status(200).json({
-                 status: 'Ok!',
-                 message: 'Successfully register user!',
-                 result: result,
-               });
-             } catch (err) {
-               console.log(err)
-               return response.status(500).json({
-                 status: 'Error!',
-                 message: 'Internal Server Error!',
-               });
-             }
-           }
-     
+  @Post('register')
+  async register(@Body() registerDto: RegisterUsersDto, @Res() res): Promise<any> {
+    try {
+      const token = await this.authService.register(registerDto);
+      return res.status(HttpStatus.CREATED).json({ token });
+    } catch (error) {
+      return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Registration failed' });
+    }
+  }
 }

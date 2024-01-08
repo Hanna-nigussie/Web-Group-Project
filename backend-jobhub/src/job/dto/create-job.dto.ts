@@ -5,22 +5,22 @@ import { UserType } from './enums';
 export class CreateJobDto {
   @IsNotEmpty()
   @IsString()
-  title: string;
+  title: string = '';
 
   @IsNotEmpty()
   @IsString()
-  description: string;
+  description: string = '';
 
   @IsOptional()
   @IsInt()
   @Min(0)
-  salary?: number;
+  salary?: number = 0;
 
   @IsNotEmpty()
   @IsString()
-  createrId: string;
+  createrId: string = '';
 
   @IsNotEmpty()
   @IsEnum(UserType, { message: 'Invalid userType. Must be either EMPLOYEE or JOB_SEEKER' })
-  userType: UserType;
+  userType: UserType = UserType.EMPLOYEE;
 }

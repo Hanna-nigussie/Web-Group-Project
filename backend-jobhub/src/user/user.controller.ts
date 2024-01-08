@@ -38,7 +38,7 @@ export class UserController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
-  uupdateUser(@Param('id') userId: string, @Body() dto: UpdateUserDto) {
+  updateUser(@Param('id') userId: string, @Body() dto: UpdateUserDto) {
     return this.userService.updateUser(userId, dto);
   }
 
@@ -58,6 +58,7 @@ export class UserController {
   }
 
   @Get(':id/profile')
+  @UseGuards(JwtAuthGuard)
   async getProfile(@Param('id') userId: string) {
     return this.userService.getProfile(userId);
   }

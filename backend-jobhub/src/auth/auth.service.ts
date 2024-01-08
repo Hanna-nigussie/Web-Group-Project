@@ -7,6 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'src/user/user.service';
 import * as jwt from 'jsonwebtoken';
+import { UserRole } from 'src/prisma/enum';
+
 
 
 @Injectable()
@@ -38,26 +40,33 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterUsersDto): Promise<string> {
-    const hashedPassword = await this.hashPassword(registerDto.password);
-
-    const userData = {
-      username: registerDto.username,
-      password: hashedPassword,
-      name: registerDto.username,
-      email: registerDto.email,
-      userrole: 'user', 
-      hash: hashedPassword,
-    };
-
-    const newUser = await this.registerUser(userData);
-
-    const token = this.jwtService.sign({
-      sub: newUser.id,
-      username: newUser.username,
-      role: newUser.userrole,
-    });
-    return token;
+    try {
+      const hashedPassword = await this.hashPassword(registerDto.password);
+  
+      const userData = {
+        username: registerDto.username,
+        password: hashedPassword,
+        name: registerDto.username,
+        email: registerDto.email,
+        userrole: UserRole.USER,
+        hash: hashedPassword,
+      };
+  
+      const newUser = await this.registerUser(userData);
+  
+      return this.jwtService.sign({
+        sub: newUser.id,
+        username: newUser.username,
+        role: newUser.userrole,
+      });
+    } catch (error) {
+      console.error('Registration failed:', (error as Error)?.message || error?.toString());
+      throw new Error('Registration failed');
+    }
   }
+  
+  
+  
 
   private async validateUserCredentials(loginDto: LoginDto): Promise<any> {
     const username = loginDto.username.toLowerCase(); 

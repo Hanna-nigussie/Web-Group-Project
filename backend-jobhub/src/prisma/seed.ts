@@ -1,8 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
+
 enum UserRole {
-  USER = 'user',
-  ADMIN = 'admin',
+  USER = 'USER',
+  ADMIN = 'ADMIN',
 }
 
 const prisma = new PrismaClient();
@@ -13,7 +14,7 @@ async function hashPassword(password: string): Promise<string> {
 }
 
 async function main() {
-  const hashedPassword = await hashPassword('123abc'); 
+  const hashedPassword = await hashPassword('123abc');
   await prisma.user.upsert({
     where: { username: 'admin' },
     update: {},

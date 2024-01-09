@@ -31,7 +31,7 @@ export class JobController {
   }
 
   @Get('forEmployees')
-  
+  @UseGuards(JwtAuthGuard)
   async getJobsForEmployees() {
     try {
       const jobs = await this.jobService.getJobsByUserType(UserType.EMPLOYEE);
@@ -42,7 +42,7 @@ export class JobController {
   }
 
   @Get('forJobSeekers')
-  
+  @UseGuards(JwtAuthGuard)
   async getJobsForJobSeekers() {
     try {
       const jobs = await this.jobService.getJobsByUserType(UserType.JOB_SEEKER);

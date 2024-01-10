@@ -16,6 +16,8 @@
     "noImplicitAny": false,  // It's usually better to have this enabled for stronger typing
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": true,  // Enable consistent casing
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node", "jest", "supertest", "@types/node", "@nestjs/passport", "@nestjs/jwt"]
+
   }
 }

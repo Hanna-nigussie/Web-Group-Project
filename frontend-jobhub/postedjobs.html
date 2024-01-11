@@ -1,51 +1,54 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Listings - Handy Jobs Hub</title>
-    <!-- Include Tailwind CSS -->
-    <link href="output.css" rel="stylesheet">
-    <!-- Add your custom styles here -->
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        main {
-            flex: 1;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
     <header class="bg-blue-500 text-white p-4">
         <h1 class="text-2xl font-bold">Job Listings</h1>
     </header>
 
     <nav class="bg-gray-300 p-4">
-        <!-- Navigation links to other sections -->
         <a href="Dashboard.html" class="text-blue-500 hover:underline">Dashboard</a>
         <a href="#" class="text-blue-500 hover:underline">Logout</a>
-        <!-- Add more navigation links as needed -->
     </nav>
 
     <main class="flex-1 max-w-4xl mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+
         <section>
             <h2 class="text-xl font-semibold mb-4">Available Jobs</h2>
+
             <ul>
                 <li class="border p-4 mb-4 rounded-md">
                     <h3 class="text-lg font-semibold">Job Title 1</h3>
                     <p class="mb-2">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit....</p>
                     <p class="mb-2">Payment: $100</p>
+
+                    <div class="flex">
+                        <button class="mr-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Update</button>
+                        <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Delete</button>
+                    </div>
                 </li>
-        
+
+                <li class="border p-4 mb-4 rounded-md">
+                    <h3 class="text-lg font-semibold">Job Title 2</h3>
+                    <p class="mb-2">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit....</p>
+                    <p class="mb-2">Payment: $150</p>
+
+                    <div class="flex">
+                        <button class="mr-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Update</button>
+                        <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Delete</button>
+                    </div>
+                </li>
             </ul>
         </section>
+
     </main>
 
-    <footer class="bg-gray-300 p-4 mt-8">
+    <footer class="bg-gray-300 p-4 mt-auto">
         <p>Contact us at: example@email.com</p>
         <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>
         <a href="#" class="text-blue-500 hover:underline">Terms of Service</a>

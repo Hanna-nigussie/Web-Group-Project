@@ -43,6 +43,7 @@ model Job {
   salary      Int?
   creater     User     @relation("user_jobs", fields: [createrId], references: [id])
   createrId   String
+  phoneNumber Int
   userType    UserType 
 
   @@map("jobs")

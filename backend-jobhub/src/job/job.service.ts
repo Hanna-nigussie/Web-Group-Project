@@ -121,6 +121,16 @@ export class JobService {
     return updatedJob;
   }
 
+  async getJobsByUserId(userId: string) {
+    const jobs = await this.db.job.findMany({
+      where: {
+        createrId: userId,
+      },
+    });
+
+    return jobs;
+  }
+
 
   
 }

@@ -16,8 +16,6 @@ export class UpdateJobDto {
   @Min(0)
   salary?: number;
 
-  @IsNotEmpty()
-  @IsInt()
-  @IsPhoneNumber(undefined, { message: 'Invalid phone number' })
-  phoneNumber?: number;
+
+
 }

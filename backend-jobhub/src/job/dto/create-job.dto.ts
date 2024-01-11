@@ -1,5 +1,6 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt, Min, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsInt, Min, IsEnum, IsPhoneNumber } from 'class-validator';
 import { UserType } from './enums';
+
 
 
 export class CreateJobDto {
@@ -23,4 +24,11 @@ export class CreateJobDto {
   @IsNotEmpty()
   @IsEnum(UserType, { message: 'Invalid userType. Must be either EMPLOYEE or JOB_SEEKER' })
   userType: UserType = UserType.EMPLOYEE;
+
+  @IsNotEmpty()
+  @IsInt()
+  @IsPhoneNumber(undefined, { message: 'Invalid phone number' })
+  phoneNumber?: number;
+
+
 }

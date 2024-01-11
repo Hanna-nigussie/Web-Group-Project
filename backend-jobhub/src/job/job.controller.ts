@@ -73,7 +73,17 @@ export class JobController {
       return { error: `An error occurred while updating job with ID ${jobId}`, success: false };
     }
   }
-
+  
+  @Get('user-jobs/:userId')
+  @UseGuards(JwtAuthGuard)
+  async getUserJobs(@Param('userId') userId: string) {
+    try {
+      const jobs = await this.jobService.getJobsByUserId(userId);
+      return { success: true, jobs };
+    } catch (error) {
+      return { error: `An error occurred while fetching jobs for user with ID ${userId}`, success: false };
+    }
+  } 
 
 
   @Get('adminOnly')

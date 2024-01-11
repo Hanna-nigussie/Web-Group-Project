@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt, Min } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsInt, Min, IsPhoneNumber } from 'class-validator';
 
 export class UpdateJobDto {
   @IsOptional()
@@ -15,4 +15,9 @@ export class UpdateJobDto {
   @IsInt()
   @Min(0)
   salary?: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  @IsPhoneNumber(undefined, { message: 'Invalid phone number' })
+  phoneNumber?: number;
 }

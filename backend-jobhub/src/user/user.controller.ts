@@ -2,10 +2,11 @@ import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundEx
 import { UserService } from './user.service';
 import { GetUser } from './decorator/get-user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from '@prisma/client';
+
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { Roles, UserRole } from 'src/auth/decorator/roles.decorator';
+import { User } from '@prisma/client';
 
 @Controller('users')
 export class UserController {
@@ -45,19 +46,20 @@ export class UserController {
 
 
   
-  @Get(':id')
-  @UseGuards(JwtAuthGuard)
- async getUserById(@Param('id') userId: string): Promise<User> {
-    const user = await this.userService.getUserById(userId);
+ // @Get(':id')
+  //@UseGuards(JwtAuthGuard)
+ //async getUserById(@Param('id') userId: string): Promise<User> {
+ //   const user = await this.userService.getUserById(userId);
 
-    if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
-    }
+  //  if (!user) {
+    //  throw new NotFoundException(`User with ID ${userId} not found`);
+    //}
 
-    return user;
-  }
+   // return user;
+  //}
 
   @Get(':id/profile')
+  @UseGuards(JwtAuthGuard)
   async getProfile(@Param('id') userId: string) {
     return this.userService.getProfile(userId);
   }

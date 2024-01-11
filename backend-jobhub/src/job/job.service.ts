@@ -35,7 +35,8 @@ export class JobService {
         title: dto.title,
         description: dto.description,
         salary: dto.salary,
-        userType: dto.userType
+        userType: dto.userType,
+       
       },
     });
   

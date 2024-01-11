@@ -25,10 +25,7 @@ export class CreateJobDto {
   @IsEnum(UserType, { message: 'Invalid userType. Must be either EMPLOYEE or JOB_SEEKER' })
   userType: UserType = UserType.EMPLOYEE;
 
-  @IsNotEmpty()
-  @IsInt()
-  @IsPhoneNumber(undefined, { message: 'Invalid phone number' })
-  phoneNumber?: number;
+ 
 
 
 }

@@ -19,12 +19,17 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() registerDto: RegisterUsersDto, @Res() res): Promise<any> {
-    try {
-      const token = await this.authService.register(registerDto);
-      return res.status(HttpStatus.CREATED).json({ token });
-    } catch (error) {
-      return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Registration failed' });
-    }
+async register(@Body() registerDto: RegisterUsersDto, @Res() res): Promise<any> {
+  try {
+    const token = await this.authService.register(registerDto);
+    return res.status(HttpStatus.CREATED).json({ token });
+  } catch (error) {
+    console.error('Registration failed:', error);
+    return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Registration failed' });
   }
+}
+
+  
+
+  
 }

@@ -17,20 +17,20 @@ Handy Jobs Hub
 
 #Dependencies needed for these project
 
-npm install jsonwebtoken
-npm install @nestjs/jwt passport-jwt
-npx ts-node src/prisma/seed.ts(for admin)
-npm install bcrypt
-npm install @types/bcrypt
-npm i -g @nestjs/cli
-npm install
-docker compose up dev-db -d (make sure your docker app is ruining)
-npx prisma migrate dev
-npm run start(do not close this terminal)
-on a new terminal >npx prisma studio(this will take you to the database)
-on new terminal >npm install --save @nestjs/config
-npm install --save class-validator class-transformer
-npm install --save bcrypt
+1,npm install jsonwebtoken
+2,npm install @nestjs/jwt passport-jwt
+3,npx ts-node src/prisma/seed.ts(for admin)
+4,npm install bcrypt
+5,npm install @types/bcrypt
+6,npm i -g @nestjs/cli
+7,npm install
+8,docker compose up dev-db -d (make sure your docker app is ruining)
+9,npx prisma migrate dev
+10,npm run start(do not close this terminal)
+11,on a new terminal >npx prisma studio(this will take you to the database)
+12,on new terminal >npm install --save @nestjs/config
+13,npm install --save class-validator class-transformer
+14,npm install --save bcrypt
 
 Admin username: admin
       password:123abc

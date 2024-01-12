@@ -72,9 +72,7 @@
       margin-bottom: 20px;
     }
   </style>
- 
-</head>
-
+ </head>
   <header>
     <div class="container">
       <div class="row">
@@ -116,32 +114,30 @@
     <div class="card mt-5" style="width: 400px;">
       <div class="card-body">
         <h1 class="card-title text-center">Create Job</h1>
-
-        <form id="createJobForm">
+      <form id="createJobForm">
           <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
             <input type="text" id="title" class="form-control" required>
           </div>
-
           <div class="mb-3">
-            <label for="description" class="form-label">Description:</label>
+            <label for="description" class="form-label">Description and contact:</label>
             <input type="text" id="description" class="form-control" required>
           </div>
-
           <div class="mb-3">
             <label for="salary" class="form-label">Salary:</label>
             <input type="number" id="salary" class="form-control" min="0" value="0">
           </div>
-
           <div class="mb-3">
             <label for="userType" class="form-label">User Type:</label>
             <select id="userType" class="form-select">
-              <option value="EMPLOYEE">Employee</option>
-              <option value="JOB_SEEKER">Job Seeker</option>
+              <option value="EMPLOYEE">Employer</option>
+              <option value="JOB_SEEKER">Employee</option>
             </select>
           </div>
-
           <button type="button" id="createJobBtn" class="btn btn-primary">Create Job</button>
+          <div id="successMessage" class="alert alert-success d-none">
+            Job created! Go look at it in the employee or employer page.
+          </div>
         </form>
       </div>
     </div>

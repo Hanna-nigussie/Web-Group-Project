@@ -1,7 +1,6 @@
 function registerUser() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-
   if (username.trim().length < 5 || username.trim().length > 10) {
     displayMessage('error', 'Username must be between 5 and 10 characters.');
     return;

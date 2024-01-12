@@ -4,84 +4,64 @@
 <head>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="js/bootstrap.bundle.js">
-    <style>
- 
-  body {
+  <style>
+   body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
+    footer{
+      margin-top: auto;
+    }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  header {
+    background-color: #101010;
+    padding: 15px;
+    width: 100%;
+  }
+
+  header img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .card-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f2f2f2;
   }
 
-  footer {
-    background-color: #101010;
-    color: #fff;
-    padding: 15px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+  .card {
+    width: 600px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #d1b9b9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  #updateUsernameBtn,
-  #updateEmailBtn,
-  #displayUserJobsBtn {
-    margin-bottom: 10px;
-    color: #0056b3;
+  .button-container {
+    display: flex;
+    gap: 10px;
   }
-  
-    
-       header {
-         background-color: #101010;
-         padding: 15px;
-         width: 100%;
-       }
-   
-       header img {
-         max-width: 100%;
-         height: auto;
-       }
-   
-       nav a {
-         color: #fff;
-         text-decoration: none;
-         font-weight: bold;
-       }
-   
-       .card {
-     width: 600px;
-     margin: 20px;
-     padding: 20px;
-     background-color: #d1b9b9;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-     height: 100vh; 
-   }
-       .center-inputs {
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-       }
-   
-       .mb-4 {
-         margin-bottom: 20px;
-       }
-   
-       h1 {
-         color: #333;
-       }
-   
-      
-   
-       
-       .success-message {
-         color: #4CAF50;
-       }
-   
-       .error-message {
-         color: #FF0000;
-       }
-     </style>
+
+  h1 {
+    color: #333;
+  }
+</style>
 </head>
 <header>
   <div class="container">
@@ -119,20 +99,15 @@
     </div>
   </div>
 </header>
-
 <body>
   <h1>User Profile</h1>
-
   <div id="profileInfo"></div>
-
-  <button id="updateUsernameBtn">Update Username</button>
-  <button id="updateEmailBtn">Update Email</button>
-  <button id="displayUserJobsBtn">Display Jobs</button>
-
-  <div id="userJobs"></div> 
-  
-
-  <script src="postjob.js"></script>
+  <div class="button-container">
+  <button type="button" id="updateUsernameBtn" class="btn btn-primary">Update Username</button>
+  <button type="button" id="updateEmailBtn" class="btn btn-primary">Update Email</button>
+</div>
+<div id="userJobs"></div> 
+<script src="dashboard.js"></script>
 </body>
 <footer class="bg-dark text-light py-3 container-fluid">
   <div class="row">

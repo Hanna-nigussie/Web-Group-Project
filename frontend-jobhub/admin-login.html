@@ -3,98 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>List of Jobs</title>
+  <title>Admin Login</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="js/bootstrap.bundle.js">
   <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
     header {
       background-color: #101010;
       padding: 15px;
       width: 100%;
     }
-
     header img {
       max-width: 100%;
       height: auto;
     }
-
     nav a {
       color: #fff;
       text-decoration: none;
       font-weight: bold;
     }
-
     .card {
   width: 600px;
   margin: 20px;
   padding: 20px;
   background-color: #d1b9b9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+  height: 400px; 
 }
-
     .error-message {
       color: #FF0000;
       margin-top: 16px;
       text-align: center;
     }
-
     .form-label {
       font-size: 18px;
       font-weight: bold;
     }
-
     .form-control {
       font-size: 16px;
       padding: 10px;
     }
-
     .btn-primary {
       background-color: #007bff;
       border-color: #007bff;
     }
-
-  .center-inputs {
+    .center-inputs {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     .mb-4 {
       margin-bottom: 20px;
     }
-
-    h1,h2,p {
-      padding: 10px;
-    }
-
-   #joblist p{
-    padding: 10px;
-   }
-   .form-label {
-      margin-bottom: 8px;
-    }
-    .form-control {
-      margin-bottom: 16px;
-    }
-    .btn-register {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-register:hover {
-      background-color: #0056b3;
-    }
-    .success-message {
-      color: #4CAF50;
-    }
-    .error-message {
-      color: #FF0000;
-    }
-</style>
+  </style>
 </head>
+<body>
   <header>
     <div class="container">
       <div class="row">
@@ -112,7 +81,10 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="homepage.html">Home</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
+                <a class="nav-link" href="admin-login.html">Admin</a>
+            </li>
+            <li class="nav-item">
                   <a class="nav-link" href="dashboard.html">Dashboard</a>
               </li>
               <li class="nav-item">
@@ -131,52 +103,48 @@
       </div>
     </div>
   </header>
-<body>
-  <div id="jobList">
-    <h1>Employees</h1>
-    <h2>Available Employees</h2>
-    <p>We offer a variety of job opportunities that can help support your career journey. By joining our team, you'll become part of a community of talented individuals who are dedicated to making a difference.</p>
-    <p>Check out the list below:</p>
-    <div id="jobListContainer" class="card-container"></div>
-    <div class="card">
-      <h3>Carpenter</h3>
-      <p>Description: Handle basic carpentry tasks, such as framing, installing shelves, or repairing doors.<br>
-        Maintain and repair outdoor spaces, including landscaping and minor repairs to fences or walkways.</p>
-      <p>salary: 4000 </p>
+  <div class="card">
+    <h1 class="text-center">Admin Login</h1>
+    <form id="loginForm" class="center-inputs">
+      <div class="mb-3 mb-4">
+        <label for="username" class="form-label">Username:</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+      </div>
+      <div class="mb-3 mb-4">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="loginAdmin()">Login</button>
+    </form>
+    <div id="errorMessage" class="error-message"></div>
+  </div>
+  <script src="admin-login.js"></script>
+</body>
+<footer class="bg-dark text-light py-3 container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <p>&copy; 2024 Your Company. All rights reserved.</p>
+      <div class="footer-content">
+        <a href="privacy.html" class="text-light">Privacy Policy</a>
+        <a href="mailto:handy@gmail.com" class="text-light">Contact Us</a>
+      </div>
     </div>
+    <div class="col-md-6">
+      <div class="footer-right">
+        <div class="footer-icon">
+          <img src="images/facebook.png" alt="Facebook Icon">
+          <span>Facebook</span>
+        </div>
+        <div class="footer-icon">
+          <img src="images/telegram.png" alt="Telegram Icon">
+          <span>@handyjs</span>
+        </div>
+        <div class="footer-icon">
+          <img src="images/instagram.png" alt="Instagram Icon">
+          <span>Instagram</span>
+        </div>
+      </div>
     </div>
   </div>
- <div id="jobList"></div>
-</body>
-  <footer class="bg-dark text-light py-3 container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
-        <div class="footer-content">
-          <a href="privacy.html" class="text-light">Privacy Policy</a>
-          <a href="mailto:handy@gmail.com" class="text-light">Contact Us</a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="footer-right">
-          <div class="footer-icon">
-            <img src="images/facebook.png" alt="Facebook Icon">
-            <span>Facebook</span>
-          </div>
-          <div class="footer-icon">
-            <img src="images/telegram.png" alt="Telegram Icon">
-            <span>@handyjs</span>
-          </div>
-          <div class="footer-icon">
-            <img src="images/instagram.png" alt="Instagram Icon">
-            <span>Instagram</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-<script src="jobseeker.js"></script>
-</body>
+</footer>
 </html>
-
-  

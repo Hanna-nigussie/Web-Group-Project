@@ -1,50 +1,42 @@
-async function fetchJobs() {
-    try {
-      const response = await fetch('http://localhost:2001/jobs/forEmployees', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        displayJobs(data.jobs);
-      } else {
-        console.error('Error fetching jobs:', data.error);
-      }
-    } catch (error) {
-      console.error('Error fetching jobs:', error.message);
-    }
-  }
-
-  function displayJobs(jobs) {
-    const jobList = document.getElementById('jobList');
-
-    jobs.forEach((job) => {
-      const card = document.createElement('div');
-      card.classList.add('card');
-
-      const title = document.createElement('h2');
-      title.textContent = job.title;
-
-      const description = document.createElement('p');
-      description.textContent = job.description;
-
-      const location = document.createElement('p');
-      location.textContent = `Location: ${job.location}`;
-
-      card.appendChild(title);
-      card.appendChild(description);
-      card.appendChild(location);
-
-      jobList.appendChild(card);
+async function fetchJobs(apiEndpoint) {
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-  }
 
-  fetchJobs();
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    if (data.success) {
+      displayJobs(data.jobs);
+    } else {
+      console.error('Error fetching jobs:', data.error);
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+}
+function displayJobs(jobs) {
+  const jobListContainer = document.getElementById('jobListContainer');
+  if (jobs.length > 0) {
+    const jobListHTML = jobs.map(job => createJobCard(job)).join('');
+    jobListContainer.innerHTML = jobListHTML;
+  } else {
+    jobListContainer.innerHTML = '<p>No jobs available.</p>';
+  }
+}
+function createJobCard(job) {
+  return `
+    <div class="card">
+      <h2>${job.title}</h2>
+      <p>Description and contact: ${job.description}</p>
+      <p>Salary: ${job.salary}</p>
+      <p>Creator ID: ${job.creatorId}</p>
+    </div>
+  `;
+}
+window.onload = () => fetchJobs('http://localhost:2001/jobs/forEmployees');

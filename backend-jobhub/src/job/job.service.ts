@@ -5,7 +5,7 @@ import {
   NotFoundException,
   
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { UpdateJobDto } from './dto/update-job.dto';

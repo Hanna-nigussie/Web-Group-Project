@@ -1,14 +1,14 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Req } from '@nestjs/common';
 import { JobService } from './job.service';
 import { CreateJobDto } from './dto/create-job.dto';
-import { GetUser } from 'src/user/decorator/get-user.decorator';
+import { GetUser } from '../user/decorator/get-user.decorator';
 import { User, UserType } from '@prisma/client';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { Roles, UserRole } from 'src/auth/decorator/roles.decorator';
+import { RolesGuard } from '../auth/guards/role.guard';
+import { Roles, UserRole } from '../auth/decorator/roles.decorator';
 
 @Controller('jobs')
 export class JobController {

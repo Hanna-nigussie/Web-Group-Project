@@ -3,9 +3,9 @@ import { UserService } from './user.service';
 import { GetUser } from './decorator/get-user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { Roles, UserRole } from 'src/auth/decorator/roles.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/role.guard';
+import { Roles, UserRole } from '../auth/decorator/roles.decorator';
 import { User } from '@prisma/client';
 
 @Controller('users')

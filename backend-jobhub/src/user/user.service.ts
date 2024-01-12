@@ -3,7 +3,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Prisma, User } from '@prisma/client'; 
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 type HashFunction = (password: string, saltOrRounds: number) => Promise<string>;
 type UserProfile = {

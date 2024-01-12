@@ -1,60 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Handy Jobs Hub</title>
-    <link href="output.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="js/bootstrap.bundle.js">
+  <style>
+   body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
+    header {
+      background-color: #101010;
+      padding: 15px;
+      width: 100%;
+    }
+
+    header img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .card {
+  width: 600px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #d1b9b9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 100vh; 
+}
+
+    .error-message {
+      color: #FF0000;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .form-label {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .form-control {
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    /* Custom CSS */
+    .center-inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mb-4 {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+    .form-label {
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      margin-bottom: 16px;
+    }
+
+    .btn-register {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-register:hover {
+      background-color: #0056b3;
+    }
+
+    .success-message {
+      color: #4CAF50;
+    }
+
+    .error-message {
+      color: #FF0000;
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100">
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="images/job.png" alt="Handy Jobs Logo" class="img-fluid">
+      </div>
+      <div class="col-md-6 d-flex align-items-center justify-content-end">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="homepage.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="jobpost.html">Post</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Dashboardemployer.html">Employer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Dashboarjobseekers.html">Employee</a>
+            </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<body>
+  <div class="card">
+    <h1 class="text-center">User Registration</h1>
 
-    <header class="bg-blue-700 text-white p-14 text-center">
-        <h1 class="text-2xl font-bold">Create an Account on Handy Jobs Hub</h1>
-    </header>
+    <form id="registrationForm">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <input type="text" id="username" name="username" class="form-control">
+      </div>
 
-    <nav class="bg-gray-300 p-4 flex justify-center gap-3">
-        <a href="homepage.html" class="text-blue-500 hover:underline">Home</a>
-        <a href="Login.html" class="text-blue-500 hover:underline">Login</a>
-    </nav>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" id="email" name="email" class="form-control">
+      </div>
 
-    <main class="flex-grow max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
-        <section>
-            <h2 class="text-xl font-semibold mb-4">Register</h2>
-            <form action="/register" method="post" onsubmit="return validateRegistration()">
-                <label for="username" class="block text-sm font-medium text-gray-600">Username:</label>
-                <input type="text" id="username" name="username" 
-                    class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
+      <div class="mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" name="password" class="form-control">
+      </div>
 
-                <label for="email" class="block mt-4 text-sm font-medium text-gray-600">Email:</label>
-                <input type="email" id="email" name="email" 
-                    class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
+      <button type="button" class="btn btn-register" onclick="registerUser()">Register</button>
+    </form>
+    <div id="responseMessage"></div>
+  </div>
 
-                <label for="password" class="block mt-4 text-sm font-medium text-gray-600">Password:</label>
-                <input type="password" id="password" name="password" 
-                    class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
-
-                <!-- Additional field for user role -->
-                <label for="userRole" class="block mt-4 text-sm font-medium text-gray-600">Select your role:</label>
-                <select id="userRole" name="userRole" 
-                    class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
-                    <option value="USER">Job Seeker</option>
-                    <option value="EMPLOYER">Employer</option>
-                </select>
-
-                <button type="submit" class="mt-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Register</button>
-                <p id="error-message" class="mt-4 text-red-500"></p>
-            </form>
-
-            <p class="mt-4">Already have an account? <a href="Login.html" class="text-blue-500 hover:underline">Login here</a>.</p>
-        </section>
-    </main>
-
-    <footer class="bg-black-300 p-4 mt-auto">
-        <p>Contact us at: example@email.com</p>
-        <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>
-        <a href="#" class="text-blue-500 hover:underline">Terms of Service</a>
-    </footer>
-    <script src="script.js"></script>
-
+  <script src="register.js"></script>
 </body>
+<footer class="bg-dark text-light py-3 container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <p>&copy; 2024 Your Company. All rights reserved.</p>
+      <div class="footer-content">
+        <a href="privacy.html" class="text-light">Privacy Policy</a>
+        <a href="mailto:handy@gmail.com" class="text-light">Contact Us</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="footer-right">
+        <div class="footer-icon">
+          <img src="images/facebook.png" alt="Facebook Icon">
+          <span>Facebook</span>
+        </div>
+        <div class="footer-icon">
+          <img src="images/telegram.png" alt="Telegram Icon">
+          <span>@handyjs</span>
+        </div>
+        <div class="footer-icon">
+          <img src="images/instagram.png" alt="Instagram Icon">
+          <span>Instagram</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 </html>

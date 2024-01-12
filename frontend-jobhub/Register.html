@@ -33,17 +33,23 @@
                 <input type="password" id="password" name="password" 
                     class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
 
+                <!-- Additional field for user role -->
+                <label for="userRole" class="block mt-4 text-sm font-medium text-gray-600">Select your role:</label>
+                <select id="userRole" name="userRole" 
+                    class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="USER">Job Seeker</option>
+                    <option value="EMPLOYER">Employer</option>
+                </select>
 
                 <button type="submit" class="mt-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Register</button>
                 <p id="error-message" class="mt-4 text-red-500"></p>
-</form>
+            </form>
 
             <p class="mt-4">Already have an account? <a href="Login.html" class="text-blue-500 hover:underline">Login here</a>.</p>
         </section>
     </main>
 
     <footer class="bg-black-300 p-4 mt-auto">
-    
         <p>Contact us at: example@email.com</p>
         <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>
         <a href="#" class="text-blue-500 hover:underline">Terms of Service</a>

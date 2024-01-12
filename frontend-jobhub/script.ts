@@ -1,58 +1,64 @@
 // script.ts
+let userRole: string = 'EMPLOYER';
 
 function validateLogin(): boolean {
-    const username = (document.getElementById('username') as HTMLInputElement).value;
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const errorMessage = document.getElementById('error-message') as HTMLElement;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const username: string = (document.getElementById('username') as HTMLInputElement).value;
+    const password: string = (document.getElementById('password') as HTMLInputElement).value;
+    const errorMessage: HTMLElement | null = document.getElementById('error-message');
+    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (username === '' || password === '') {
-        errorMessage.textContent = 'All fields must be filled out.';
+        if (errorMessage) errorMessage.textContent = 'All fields must be filled out.';
         return false;
     }
 
     if (!emailRegex.test(username)) {
-        errorMessage.textContent = 'Please enter a valid email address.';
+        if (errorMessage) errorMessage.textContent = 'Please enter a valid email address.';
         return false;
     }
 
-    // Assuming the form is valid, you can redirect to the dashboard
-    window.location.href = 'Dashboard.html'; // Replace 'dashboard.html' with your actual dashboard page
+    
+    if (userRole === 'EMPLOYE') {
+        window.location.href = 'Dashboardemploye.html';
+    } else if (userRole === 'EMPLOYER') {
+        window.location.href = 'Dashboardemployer.html';
+    }
 
-    return false; // Prevents the form from submitting (you may remove this line if you want to submit the form)
+    return false; 
 }
 
 function validateRegistration(): boolean {
-    const username = (document.getElementById('username') as HTMLInputElement).value;
-    const email = (document.getElementById('email') as HTMLInputElement).value;
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const errorMessage = document.getElementById('error-message') as HTMLElement;
+    const username: string = (document.getElementById('username') as HTMLInputElement).value;
+    const email: string = (document.getElementById('email') as HTMLInputElement).value;
+    const password: string = (document.getElementById('password') as HTMLInputElement).value;
+    const errorMessage: HTMLElement | null = document.getElementById('error-message');
 
-    // Perform validation checks (add more if needed)
     if (username === '' || email === '' || password === '') {
-        errorMessage.textContent = 'All fields must be filled out.';
+        if (errorMessage) errorMessage.textContent = 'All fields must be filled out.';
         return false;
     }
 
-    // Assuming the form is valid, you can redirect to the dashboard
-    window.location.href = 'Dashboard.html'; // Replace 'dashboard.html' with your actual dashboard page
+    if (userRole === 'EMPLOYE') {
+        window.location.href = 'Dashboardemploye.html';
+    } else if (userRole === 'EMPLOYER') {
+        window.location.href = 'Dashboardemployer.html';
+    }
 
-    return false; // Prevents the form from submitting (you may remove this line if you want to submit the form)
+    return false;
 }
 
-const form:any = document.querySelector('form');
+const form: HTMLFormElement | null = document.querySelector('form');
+if (form) {
+    form.addEventListener('submit', function (event: Event) {
+        const jobTitleInput: HTMLInputElement | null = document.getElementById('jobTitle') as HTMLInputElement;
+        const jobDescriptionInput: HTMLInputElement | null = document.getElementById('jobDescription') as HTMLInputElement;
+        const paymentInput: HTMLInputElement | null = document.getElementById('payment') as HTMLInputElement;
+        const errorMessage: HTMLElement | null = document.getElementById('error-message');
 
-form.addEventListener('submit', function (event) {
-    const jobTitleInput:any = document.getElementById('jobTitle');
-    const jobDescriptionInput:any = document.getElementById('jobDescription');
-    const paymentInput:any = document.getElementById('payment');
-    const errorMessage:any = document.getElementById('error-message');
-
-    if (!jobTitleInput.value.trim() || !jobDescriptionInput.value.trim() || !paymentInput.value.trim()) {
-        event.preventDefault(); // Prevent form submission
-
-        // Display error message
-        errorMessage.textContent = 'All fields must be filled out.';
-        return false;
-    }
-});
+        if (!jobTitleInput?.value.trim() || !jobDescriptionInput?.value.trim() || !paymentInput?.value.trim()) {
+            event.preventDefault();
+            if (errorMessage) errorMessage.textContent = 'All fields must be filled out.';
+            return false;
+        }
+    });
+}

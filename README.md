@@ -7,7 +7,7 @@ Handy Jobs Hub
 
 
 
-    *For our project, we have chosen PostgreSQL as our relational database management system and Prisma as our Object-Relational Mapping (ORM) tool. We made this choice for the following reasons:- 
+   For our project, we have chosen PostgreSQL as our relational database management system and Prisma as our Object-Relational Mapping (ORM) tool. We made this choice for the following reasons:- 
 
 1, PostgreSQL is widely used, so there is a lot of support and information available for solving problems, which benefits our team.
 

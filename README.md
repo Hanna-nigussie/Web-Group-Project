@@ -27,9 +27,11 @@ npm i -g @nestjs/cli
 8, npm install @nestjs/jwt passport-jwt   
 9, npx ts-node src/prisma/seed.ts(for copying the admin to the database)  
 10,npm install bcrypt  
-11,npm install @types/bcrypt    
+11,npm install -save @nestjs/jwt    
 12,npm install --save class-validator class-transformer
 14,npm install --save bcrypt
+15, npm install --save @nestjs/schedule   
+16,npm install @types/bcrypt
 
 Admin username: admin
       password:123abc

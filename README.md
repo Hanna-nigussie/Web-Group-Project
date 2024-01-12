@@ -24,11 +24,11 @@ Handy Jobs Hub
 5,npm install @types/bcrypt
 6,npm i -g @nestjs/cli
 7,npm install
-8,docker compose up dev-db -d (make sure your docker app is ruining)
+8,docker compose up dev-db -d 
 9,npx prisma migrate dev
-10,npm run start(do not close this terminal)
-11,on a new terminal >npx prisma studio(this will take you to the database)
-12,on new terminal >npm install --save @nestjs/config
+10,npm run start
+11,npx prisma studio
+12,npm install --save @nestjs/config
 13,npm install --save class-validator class-transformer
 14,npm install --save bcrypt
 

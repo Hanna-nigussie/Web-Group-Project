@@ -5,10 +5,7 @@ import { LoginDto } from './dto/user_login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'src/user/user.service';
-import * as jwt from 'jsonwebtoken';
 import { UserRole } from 'src/prisma/enum';
-
-
 
 @Injectable()
 export class AuthService {
@@ -23,25 +20,33 @@ export class AuthService {
     return user?.userrole === role;
   }
 
-  async login(loginDto: LoginDto): Promise<string> {
-    const user = await this.validateUserCredentials(loginDto);
+  public async loginUser(loginDto: LoginDto): Promise<any> {
+    try {
+      const user = await this.validateUserCredentials(loginDto);
 
-    if (user) {
-      const token = this.jwtService.sign({
-        sub: user.id,
-        username: user.username,
-        role: user.userrole,
-      });
-      return token;
+      if (user) {
+        const token = this.jwtService.sign({
+          sub: user.id,
+          username: user.username,
+          role: user.userrole,
+        });
+
+        // Fetch the user's ID
+        const userId = await this.userService.getUserById(user.id);
+
+        return { token, userId: userId?.id };
+      }
+
+      throw new UnauthorizedException('Invalid credentials');
+    } catch (error) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-
-    throw new UnauthorizedException('Invalid credentials');
   }
 
   async register(registerDto: RegisterUsersDto): Promise<string> {
     try {
       const hashedPassword = await this.hashPassword(registerDto.password);
-  
+
       const userData = {
         username: registerDto.username,
         password: hashedPassword,
@@ -50,9 +55,9 @@ export class AuthService {
         userrole: UserRole.USER,
         hash: hashedPassword,
       };
-  
+
       const newUser = await this.registerUser(userData);
-  
+
       return this.jwtService.sign({
         sub: newUser.id,
         username: newUser.username,
@@ -63,16 +68,13 @@ export class AuthService {
       throw new Error('Registration failed');
     }
   }
-  
-  
-  
 
   private async validateUserCredentials(loginDto: LoginDto): Promise<any> {
-    const username = loginDto.username.toLowerCase(); 
+    const username = loginDto.username.toLowerCase();
 
     if (username === 'admin' && loginDto.password === '1234abc') {
       return {
-        id: 'admin-id', 
+        id: 'admin-id',
         username: 'admin',
         userrole: 'admin',
       };
@@ -109,23 +111,12 @@ export class AuthService {
   async validateUserById(userId: string): Promise<any> {
     return this.userService.getUserById(userId);
   }
+
   async hasAdminRole(userId: string): Promise<boolean> {
     const user = await this.validateUserById(userId);
     return user?.userrole === 'admin';
-  }}
+  }
+}
+
 
  
-const secretKey = '12345'; 
-
-const generateJwtToken = (userId: string, username: string, roles: string[]) => {
-  const payload = { sub: userId, username, roles };
-  const options = { expiresIn: '1h' }; 
-
-  return jwt.sign(payload, secretKey, options);
-};
-
-const userId = '123';
-const username = 'firstUser';
-const roles = ['user', 'admin'];
-
-const token = generateJwtToken(userId, username, roles);

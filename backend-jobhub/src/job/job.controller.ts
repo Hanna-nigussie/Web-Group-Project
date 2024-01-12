@@ -31,7 +31,7 @@ export class JobController {
   }
 
   @Get('forEmployees')
-  @UseGuards(JwtAuthGuard)
+
   async getJobsForEmployees() {
     try {
       const jobs = await this.jobService.getJobsByUserType(UserType.EMPLOYEE);
@@ -42,7 +42,7 @@ export class JobController {
   }
 
   @Get('forJobSeekers')
-  @UseGuards(JwtAuthGuard)
+  
   async getJobsForJobSeekers() {
     try {
       const jobs = await this.jobService.getJobsByUserType(UserType.JOB_SEEKER);
@@ -78,12 +78,16 @@ export class JobController {
   @UseGuards(JwtAuthGuard)
   async getUserJobs(@Param('userId') userId: string) {
     try {
+      console.log(`Fetching jobs for user with ID: ${userId}`);
       const jobs = await this.jobService.getJobsByUserId(userId);
+      console.log('Fetched jobs:', jobs);
       return { success: true, jobs };
     } catch (error) {
+      console.error(`Error fetching jobs for user with ID ${userId}:`, error);
       return { error: `An error occurred while fetching jobs for user with ID ${userId}`, success: false };
     }
-  } 
+  }
+  
 
 
   @Get('adminOnly')

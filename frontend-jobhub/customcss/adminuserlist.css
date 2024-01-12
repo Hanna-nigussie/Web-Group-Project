@@ -1,58 +1,42 @@
+
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    background-color: #f2f2f2;
-  }
-  header {
-    background-color: #101010;
-    padding: 15px;
-    width: 100%;
-  }
-  header img {
-    max-width: 100%;
-    height: auto;
-  }
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .card {
-width: 600px;
-margin: 20px;
-padding: 20px;
-background-color: #d1b9b9;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-margin-bottom: 10px;
-height: 400px;
+  background-color: #fff;
+  color: #000;
 }
-  .error-message {
-    color: #FF0000;
-    margin-top: 16px;
-    text-align: center;
-  }
-  .form-label {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .form-control {
-    font-size: 16px;
-    padding: 10px;
-  }
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  .center-inputs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .mb-4 {
-    margin-bottom: 20px;
-  }
-  .delete-btn {
-    margin-top: 5px;
-  }
+
+.navbar {
+  background-color: #222;
+}
+.navbar-nav {
+  margin-left: auto; 
+  display: flex;
+  gap: 30px; 
+}
+
+.navbar-nav .nav-item {
+  margin-right: 0;
+}
+.card {
+  background-color: #2b18bf;
+  color: #fff;
+  margin: 50px auto 20px; 
+  
+  padding: 40px; 
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  
+  bottom: 0;
+  width: 100%;
+}

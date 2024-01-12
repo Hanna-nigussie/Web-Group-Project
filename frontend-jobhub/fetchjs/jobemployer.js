@@ -35,7 +35,6 @@ function createJobCard(job) {
       <h2>${job.title}</h2>
       <p>Description and contact: ${job.description}</p>
       <p>Salary: ${job.salary}</p>
-      <p>Creator ID: ${job.creatorId}</p>
     </div>
   `;
 }

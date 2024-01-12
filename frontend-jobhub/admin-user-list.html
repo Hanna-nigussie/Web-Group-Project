@@ -6,66 +6,7 @@
   <title>Admin User List</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="js/bootstrap.bundle.js">
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100vh;
-      background-color: #f2f2f2;
-    }
-    header {
-      background-color: #101010;
-      padding: 15px;
-      width: 100%;
-    }
-    header img {
-      max-width: 100%;
-      height: auto;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .card {
-  width: 600px;
-  margin: 20px;
-  padding: 20px;
-  background-color: #d1b9b9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-  height: 400px;
-}
-    .error-message {
-      color: #FF0000;
-      margin-top: 16px;
-      text-align: center;
-    }
-    .form-label {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .form-control {
-      font-size: 16px;
-      padding: 10px;
-    }
-    .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
-    .center-inputs {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .mb-4 {
-      margin-bottom: 20px;
-    }
-    .delete-btn {
-      margin-top: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="customcss/adminuserlist.css">
 </head>
 <body>
   <header>
@@ -82,24 +23,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="homepage.html">Home</a>
-              </li>
+                
               <li class="nav-item active">
-                <a class="nav-link" href="admin-login.html">Admin</a>
+                <a class="nav-link" href="admin-login.html">Home</a>
             </li>
             <li class="nav-item">
-                  <a class="nav-link" href="dashboard.html">Dashboard</a>
+                  <a class="nav-link" href="admin-user-list.html">Users</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="jobpost.html">Post</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="Dashboardemployer.html">Employer</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="Dashboarjobseekers.html">Employee</a>
-              </li>
+              
               </ul>
             </div>
           </nav>
@@ -116,7 +47,7 @@
   <template id="deleteButtonTemplate">
     <button class="delete-btn">Delete</button>
   </template>
-<script src="admin-user-list.js"></script>
+<script src="fetchjs/admin-user-list.js"></script>
 </body>
 <footer class="bg-dark text-light py-3 container-fluid">
     <div class="row">

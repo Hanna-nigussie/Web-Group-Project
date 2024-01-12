@@ -1,0 +1,86 @@
+header {
+    background-color: #101010;
+    padding: 15px;
+    width: 100%;
+  }
+
+  header img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .card {
+width: 600px;
+margin: 20px;
+padding: 20px;
+background-color: #d1b9b9;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+  .error-message {
+    color: #FF0000;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .form-label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .form-control {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+.center-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mb-4 {
+    margin-bottom: 20px;
+  }
+
+  h1,h2,p {
+    padding: 10px;
+  }
+
+ #joblist p{
+  padding: 10px;
+ }
+ .form-label {
+    margin-bottom: 8px;
+  }
+  .form-control {
+    margin-bottom: 16px;
+  }
+  .btn-register {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-register:hover {
+    background-color: #0056b3;
+  }
+  .success-message {
+    color: #4CAF50;
+  }
+  .error-message {
+    color: #FF0000;
+  }

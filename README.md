@@ -16,20 +16,19 @@ Handy Jobs Hub
 3,Prisma's tools make it easy to update our data model as our project grows, and its clear data modeling helps keep track, making it simple to understand and manage the database structure for better project insights.
 
 #Dependencies needed for these project
-
-1,npm install jsonwebtoken
-2,npm install @nestjs/jwt passport-jwt
-3,npx ts-node src/prisma/seed.ts(for admin)
-4,npm install bcrypt
-5,npm install @types/bcrypt
-6,npm i -g @nestjs/cli
-7,npm install
-8,docker compose up dev-db -d 
-9,npx prisma migrate dev
-10,npm run start
-11,npx prisma studio
-12,npm install --save @nestjs/config
-13,npm install --save class-validator class-transformer
+npm i -g @nestjs/cli   
+1,npm install  
+2, docker compose up dev-db -d   
+3, npx prisma migrate dev   
+4, npm run start  
+5, npm install --save @nestjs/config   
+6, npx prisma studio   
+7,  npm install jsonwebtoken   
+8, npm install @nestjs/jwt passport-jwt   
+9, npx ts-node src/prisma/seed.ts(for copying the admin to the database)  
+10,npm install bcrypt  
+11,npm install @types/bcrypt    
+12,npm install --save class-validator class-transformer
 14,npm install --save bcrypt
 
 Admin username: admin
